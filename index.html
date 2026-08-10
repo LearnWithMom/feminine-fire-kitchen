@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Feminine Fire Kitchen — Flexible Meal Vault</title>
+<link rel="stylesheet" href="css/styles.css?v=6">
+</head>
+<body>
+<div class="shell">
+<nav><div class="brand"><span class="mark">FF</span> Feminine Fire Kitchen</div><div class="links"><a href="#planner">My Plan</a><a href="#vault">Recipe Vault</a><a href="#strategy">Strategy</a><a href="#groceries">Groceries</a></div></nav>
+<section class="hero">
+<div class="hero-main"><div class="eyebrow">✦ A flavorful, flexible kitchen collection</div><h1>Cook with ease.<br>Eat beautifully.</h1><p>A thoughtful collection of vibrant dinners, comforting favorites, batch-friendly recipes, crockpot meals, and simple planning tools designed for the rhythm of your household.</p><div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:24px"><a class="btn btn-light" href="#planner" style="text-decoration:none">Build my plan ↓</a><button class="btn btn-ghost" onclick="makeSuggestedWeek()">Create another easy week</button></div></div>
+<aside class="hero-side"><h2>A flexible weekly rhythm</h2><div class="truth"><b>Weekdays:</b> choose two or three cooking nights.</div><div class="truth"><b>Following nights:</b> enjoy leftovers, a simple remix, or a freezer meal.</div><div class="truth"><b>Weekends:</b> add fresh meals whenever they fit your plans.</div><div class="truth"><b>Standard recipe yield:</b> four balanced servings, with larger batch options built in.</div></aside>
+</section>
+</div>
+
+<main>
+<section id="planner" class="section"><div class="shell">
+<div class="section-head"><div><h2>Your plan, your rules.</h2><p class="sub">Choose a recipe, place it on your calendar, and decide whether the following day should be reserved for leftovers. Your plan saves automatically in this browser.</p></div><button class="btn btn-dark" onclick="printSection('planner')">Print meal plan</button></div>
+<div class="dashboard"><div class="stat"><strong id="cookCount">0</strong><span>meals you will prepare</span></div><div class="stat"><strong id="leftoverCount">0</strong><span>planned leftover days</span></div><div class="stat"><strong id="crockCount">0</strong><span>selected crockpot recipes</span></div><div class="stat"><strong id="openCount">30</strong><span>open or flexible days</span></div></div>
+<section class="preferences">
+<div class="preferences-summary" onclick="togglePreferences()" role="button" tabindex="0" aria-controls="preferencesBody" aria-expanded="false">
+  <div class="preferences-icon">⚙</div>
+  <div class="preferences-copy">
+    <h3>Planner Preferences</h3>
+    <p>Customize how your balanced month is created.</p>
+  </div>
+  <button class="preferences-toggle" type="button" aria-label="Show planner preferences">Show</button>
+</div>
+
+<div id="preferencesBody" class="preferences-body hidden">
+  <div class="preference-grid">
+    <label class="preference-card">
+      <input id="prefFridayFlex" type="checkbox" checked>
+      <span class="check-ui"></span>
+      <span class="preference-text">
+        <strong>Flex Fridays</strong>
+        <small>Keep Fridays open for takeout, events, freezer meals, or whatever fits the week.</small>
+      </span>
+    </label>
+
+    <label class="preference-card">
+      <input id="prefAlternateWeekdays" type="checkbox" checked>
+      <span class="check-ui"></span>
+      <span class="preference-text">
+        <strong>Cook Every Other Weekday</strong>
+        <small>Use leftovers after most Monday-through-Thursday cooking days.</small>
+      </span>
+    </label>
+
+    <label class="preference-card">
+      <input id="prefCrockpot" type="checkbox" checked>
+      <span class="check-ui"></span>
+      <span class="preference-text">
+        <strong>Include 4+ Crockpot Meals</strong>
+        <small>Spread batch-friendly crockpot dinners throughout the month.</small>
+      </span>
+    </label>
+
+    <label class="preference-card">
+      <input id="prefBreakfast" type="checkbox" checked>
+      <span class="check-ui"></span>
+      <span class="preference-text">
+        <strong>Include 2 Breakfast-for-Dinner Meals</strong>
+        <small>Add favorites such as French toast or chicken and waffles.</small>
+      </span>
+    </label>
+
+    <label class="preference-card">
+      <input id="prefSeafood" type="checkbox" checked>
+      <span class="check-ui"></span>
+      <span class="preference-text">
+        <strong>Include 3+ Seafood Meals</strong>
+        <small>Build in salmon or shrimp throughout the month.</small>
+      </span>
+    </label>
+
+    <label class="preference-card">
+      <input id="prefSundayComfort" type="checkbox" checked>
+      <span class="check-ui"></span>
+      <span class="preference-text">
+        <strong>Sunday Comfort Meals</strong>
+        <small>Favor roasts, stews, baked pasta, fried chicken, or similar Sunday dinners.</small>
+      </span>
+    </label>
+
+    <label class="preference-card">
+      <input id="prefFreeze" type="checkbox" checked>
+      <span class="check-ui"></span>
+      <span class="preference-text">
+        <strong>Freezer-Friendly Meals</strong>
+        <small>Include recipes that make it easy to save portions for later.</small>
+      </span>
+    </label>
+
+    <label class="preference-card">
+      <input id="prefNoBackToBackBeef" type="checkbox" checked>
+      <span class="check-ui"></span>
+      <span class="preference-text">
+        <strong>Avoid Back-to-Back Beef</strong>
+        <small>Keep the protein mix balanced across the month.</small>
+      </span>
+    </label>
+  </div>
+
+  <div class="preferences-footer">
+    <button class="btn btn-ghost pref-reset" type="button" onclick="resetPreferences(event)">Reset defaults</button>
+    <button class="btn btn-dark" type="button" onclick="togglePreferences(event)">Done</button>
+  </div>
+</div>
+</section>
+<div class="planner-tools">
+  <select id="monthSelect"><option value="30">30-day plan</option><option value="28">4-week plan</option></select>
+  <button class="btn btn-dark" onclick="makeSuggestedMonth()">Create another balanced month</button>
+  <button class="btn btn-ghost" onclick="clearPlan()">Clear plan</button>
+</div>
+<div id="plannerGrid" class="planner"></div>
+</div></section>
+
+<section id="vault" class="section"><div class="shell">
+<div class="section-head"><div><h2>Your complete recipe collection.</h2><p class="sub">Explore 100 flavorful recipes, including crockpot, Instant Pot, steak, seafood, Southern, brunch, and comfort-food favorites. Search by ingredient, mood, cooking method, or preparation time.</p></div></div>
+<div class="filters"><input id="search" placeholder="Search salmon, crockpot, comfort, 30 minutes…"><select id="protein"><option value="">All proteins</option><option>Chicken</option><option>Beef</option><option>Seafood</option><option>Turkey</option><option>Sausage</option><option>Pork</option><option>Breakfast</option><option>Vegetarian</option></select><select id="method"><option value="">Any method</option><option>Oven</option><option>Skillet</option><option>One Pan</option><option>Instant Pot</option><option>Crockpot</option><option>Stovetop</option><option>Oven + Skillet</option><option>Microwave + Oven</option></select><button id="favOnly" class="btn btn-ghost">♡ Favorites</button></div>
+<div id="recipeGrid" class="recipe-grid"></div>
+</div></section>
+
+<section id="strategy" class="section"><div class="shell"><h2>A simple cooking rhythm.</h2><p class="sub">Use each cooking day to support the next meal, reduce repetition, and keep the week easy to manage.</p>
+<div class="guide">
+<article><h3>Cook night</h3><ol><li>Use the recipe’s as-written batch size. Most standard meals make 4 servings: dinner for 2 plus leftovers for 2.</li><li>Serve 2 that night.</li><li>Package the other 2 before everybody starts “sampling.”</li><li>Assign them to the next day.</li></ol></article>
+<article><h3>Batch night</h3><ol><li>Use a 6–8 serving crockpot meal.</li><li>Eat it once as written.</li><li>Remix it once: tacos, bowls, pasta, potatoes, or sandwiches.</li><li>Freeze anything beyond two nights.</li></ol></article>
+<article><h3>Weekend rhythm</h3><ol><li>Cook a fresh meal Saturday.</li><li>Cook Sunday with leftovers in mind.</li><li>Use Sunday’s extra servings for Monday.</li><li>Start Tuesday without touching a skillet.</li></ol></article>
+</div></div></section>
+
+<section id="groceries" class="section"><div class="shell"><div class="section-head"><div><h2>Weekly grocery planning.</h2><p class="sub">Use the original weekly lists as a starting point, or create a grocery list from the recipes currently placed on your plan.</p></div><div style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn btn-ghost" onclick="buildSelectedGroceryList()">Build list from my plan</button><button class="btn btn-dark" onclick="printSection('groceries')">Print grocery list</button></div></div><div id="selectedGroceries"></div><div id="groceryLists"></div></div></section>
+</main>
+<footer><div class="shell"><strong style="font-family:Georgia,serif;font-size:1.4rem">Feminine Fire Kitchen</strong><br>100 flavorful recipes, flexible planning, and a calmer way to feed the household.<br><span id="buildStamp" class="build-stamp">100-recipe final edition</span></div></footer>
+
+<dialog id="modal"><div class="modal-head"><button class="close" id="modalClose" aria-label="Close recipe">×</button><div id="mEye" class="eyebrow"></div><h2 id="mTitle"></h2><div id="mMeta" class="meta" style="color:#f5dfe7"></div><div class="serving-control"><span>Adjust recipe:</span><div class="servings" id="mServings"></div></div></div><div class="modal-body"><div class="prep-box"><h3>Quick prep</h3><ol id="mPrep"></ol></div><div class="cols"><div><h3>Ingredients</h3><ul id="mIngredients"></ul><div class="batch-note"><strong>Batch-size note:</strong> <span id="mBatchNote"></span></div></div><div><h3>Do this</h3><ol id="mSteps"></ol></div></div><div id="mLeft" class="note"></div><div id="mNote" class="note"></div></div></dialog>
+
+<dialog id="picker"><div class="modal-head"><button class="close" id="pickerClose" aria-label="Close picker">×</button><div class="eyebrow">Add to your plan</div><h2 id="pickerTitle">Choose a meal</h2><div class="meta" style="color:#f5dfe7">Pick a recipe, or set the night aside.</div></div><div class="modal-body"><div class="picker-quick"><button type="button" class="btn btn-ghost" data-pick="leftover">Make it a leftovers night</button><button type="button" class="btn btn-ghost" data-pick="flex">Make it a flex night</button></div><input id="pickerSearch" class="picker-search" placeholder="Search by name, ingredient, or method…" autocomplete="off"><div id="pickerList" class="picker-list"></div></div></dialog>
+<div id="toast" class="toast"></div>
+
+<script src="js/app.js?v=6" defer></script>
+</body></html>
